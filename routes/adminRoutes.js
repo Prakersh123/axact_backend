@@ -71,7 +71,7 @@ router.post("/login", async (req, res) => {
     if (req.body.type === 'admin') {
         console.log("sdlkfjksdl")
         console.log(req.body.email, req.body.password)
-        if (req.body.email === "admin@axact.com" && req.body.password === "admin") {
+        if (req.body.email === process.env.EMAIL && req.body.password === process.env.PASSWORD) {
             console.log("in")
             const adm = await db.Ad.findOne({});
             if (adm) {
