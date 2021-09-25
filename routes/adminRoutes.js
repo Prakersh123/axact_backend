@@ -15,6 +15,7 @@ router.post("/arya", async (req, res) => {
 
 //home page products
 router.get('/getall', async (req, res) => {
+
     res.cookie("jwtoken", "adsfhkjashd", {
         expires: new Date(Date.now() + 258920000),
         // httpOnly: true
@@ -68,7 +69,25 @@ router.post("/login", async (req, res) => {
     console.log(req.body)
 
     if (req.body.type === 'admin') {
+        console.log("sdlkfjksdl")
+        console.log(req.body.email, req.body.password)
+        if (req.body.email === "admin@axact.com" && req.body.password === "admin") {
+            console.log("in")
+            const adm = await db.Ad.findOne({});
+            if (adm) {
+                const toke = await jwt.sign({ id: adm._id }, process.env.SECRET_KEY)
+                adm.tokens.push({ token: toke });
+                const got_new = await adm.save();
+                console.log(got_new);
+                return res.json({ message: toke, type: 'admin' })
 
+            }
+            else {
+                return res.status(400).json({ message: "Invalid Credentials" });
+
+            }
+
+        }
     }
     else {
 
@@ -82,7 +101,7 @@ router.post("/login", async (req, res) => {
                     // httpOnly: true
                 })
                 console.log(token);
-                return res.json({ message: token })
+                return res.json({ message: token, type: "user" })
             }
             else {
                 return res.status(400).json({ message: "Invalid Credentials" });
@@ -175,4 +194,4 @@ router.post("/itemofcart", async (req, res) => {
 })
 
 
-module.exports = router 
+module.exports = router

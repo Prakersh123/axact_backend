@@ -12,3 +12,5 @@ mongoose.connect(process.env.DB_URI, {
 
 module.exports.Admin = require('./Admin')
 module.exports.User = require('./User')
+module.exports.Ad = require('./Ad')
+
