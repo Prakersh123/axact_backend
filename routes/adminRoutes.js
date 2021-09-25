@@ -17,7 +17,7 @@ router.post("/arya", async (req, res) => {
 router.get('/getall', async (req, res) => {
     res.cookie("jwtoken", "adsfhkjashd", {
         expires: new Date(Date.now() + 258920000),
-        httpOnly: true
+        // httpOnly: true
     })
     const result = await db.Admin.find({});
     console.log(result);
@@ -79,7 +79,7 @@ router.post("/login", async (req, res) => {
                 const token = await user.genauthtoken();
                 res.cookie("jwtoken", token, {
                     expires: new Date(Date.now() + 258920000),
-                    httpOnly: true
+                    // httpOnly: true
                 })
                 console.log(token);
                 return res.json({ message: token })
@@ -175,4 +175,4 @@ router.post("/itemofcart", async (req, res) => {
 })
 
 
-module.exports = router;
+module.exports = router;d
